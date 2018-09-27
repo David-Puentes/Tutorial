@@ -1,0 +1,790 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{0. Tutorial\_inicio}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{¿Qué son los notebooks de Jupyter
+?}\label{quuxe9-son-los-notebooks-de-jupyter}
+
+Son una aplicación web open source que permite crear documentos con
+código, texto enriquecido y visualizaciones. Ideal para crear y
+compartir documentos que contienen ecuaciones, texto junto a código
+(Python, R, Ruby, Sage, Haskell, Go, Spark ..) Permiten que el trabajo
+sea reproducible y más interactivo.
+
+Ventajas
+
+\begin{itemize}
+\tightlist
+\item
+  Elige el lenguaje.
+\item
+  Fácil de compartir.
+\item
+  Widgets interactivos.
+\end{itemize}
+
+Se pueden poner ecuaciones en una celda de tipo Markdown como esta
+
+\[\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}\]
+
+    En este notebook se abordarán las siguientes temáticas:
+
+\begin{verbatim}
+0. Documentación en python
+1. Variables y tipos
+2. Operadores
+\end{verbatim}
+
+    \subsection{0. Documentación en
+python}\label{documentaciuxf3n-en-python}
+
+    Para acceder a la documentación de python y obtener ayuda sobre los
+diferentes módulos o funciones se hace uso del simbolo de interrogación
+(?). De esta manera se accederá a una introducción y revisión de las
+características de Ipython
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{?}
+\end{Verbatim}
+
+
+    Con el comando help() se accede al sistema de ayuda propio de Python
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{help}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Welcome to Python 3.6's help utility!
+
+If this is your first time using Python, you should definitely check out
+the tutorial on the Internet at http://docs.python.org/3.6/tutorial/.
+
+Enter the name of any module, keyword, or topic to get help on writing
+Python programs and using Python modules.  To quit this help utility and
+return to the interpreter, just type "quit".
+
+To get a list of available modules, keywords, symbols, or topics, type
+"modules", "keywords", "symbols", or "topics".  Each module also comes
+with a one-line summary of what it does; to list the modules whose name
+or summary contain a given string such as "spam", type "modules spam".
+
+help> quit
+
+You are now leaving help and returning to the Python interpreter.
+If you want to ask for help on a particular object directly from the
+interpreter, you can type "help(object)".  Executing "help('string')"
+has the same effect as typing a particular string at the help> prompt.
+
+    \end{Verbatim}
+
+    En jupyter se cuenta con funciones "mágicas" que proporcionan una serie
+de funciones que permiten tener control sobre el comportamiento de
+Ipython, por ejemplo, el tiempo de ejecución de una línea o una celda.
+Las funciones "mágicas" tienen como prefijo el simbolo \% o \%\% para
+celdas "mágicas"
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{o}{\PYZpc{}}\PY{k}{magic}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{o}{\PYZpc{}}\PY{k}{quickref}
+\end{Verbatim}
+
+
+    \subsection{1. Variables y tipos}\label{variables-y-tipos}
+
+    En python se distinguen 3 tipo de variables: numéricas (int,float), tipo
+texto(str) y lógicas (bool)
+
+    \begin{verbatim}
+1. Numéricas (enteros y reales)
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{15}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+15
+True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{a}\PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{b}\PY{o}{=} \PY{l+m+mf}{6.5}
+        
+        \PY{c+c1}{\PYZsh{} Para imprimir una variable se usa la función print()}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5
+6.5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'int'>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} Para conocer el tipo de la variable se usa la función type()}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,}\PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'int'> <class 'float'>
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+2. Texto
+\end{verbatim}
+
+    En la creación de las variables tipo texto se deben emplear las comillas
+para indicar que es considerado como texto, de lo contratio se generará
+un error
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{Str} \PY{o}{=} \PY{n}{Hola}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-13-d677e4aeba82> in <module>()
+    ----> 1 Str = Hola
+    
+
+        NameError: name 'Hola' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{Str} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hola mundo!}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hola mundo!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{Nombre}\PY{o}{=} \PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ingrese su nombre: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bienvenido a OPALO }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n}{Nombre}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ingrese su nombre: David
+Bienvenido a OPALO David!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{Nombre}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} str
+\end{Verbatim}
+            
+    \begin{verbatim}
+3. Booleanas
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{a}\PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{b}\PY{o}{=} \PY{l+m+mi}{34}\PY{o}{\PYZgt{}}\PY{l+m+mi}{29}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} bool
+\end{Verbatim}
+            
+    Para nombrar las variables se pueden asignar nombres libremente, sin
+embargo, no pueden empezar con valores numéricos o utilizar palabras
+reservadas (33 palabras), como:
+
+\begin{array}{|c|c|} \hline
+and &del &from &None &True \\ \hline
+as &elif &global &nonlocal &try \\ \hline
+assert &else &if &not &while \\ \hline
+break &except &import &or &with \\ \hline
+class &False &in &pass &yield \\ \hline
+continue &finally &is &raise \\ \hline
+def &for &lambda &return \\ \hline
+\end{array}
+
+    \subsection{2. Operadores}\label{operadores}
+
+    Respecto a los operadores se distinguen tres tipos: * aritméticos: +, -,
+/, \% * booleano: and, or, not * comparación: ==, \textless{}=,
+\textgreater{}=, !=
+
+Para utilizar los operadores aritméticos los valores deben ser del mismo
+tipo, es decir, se suma texto con texto o número con número, en el caso
+de los tipo bool el valor de True es igual a 1 y False a 0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{help}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Obtener ayuda sobre los operadores}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Operator precedence
+*******************
+
+The following table summarizes the operator precedence in Python, from
+lowest precedence (least binding) to highest precedence (most
+binding).  Operators in the same box have the same precedence.  Unless
+the syntax is explicitly given, operators are binary.  Operators in
+the same box group left to right (except for exponentiation, which
+groups from right to left).
+
+Note that comparisons, membership tests, and identity tests, all have
+the same precedence and have a left-to-right chaining feature as
+described in the Comparisons section.
+
++-------------------------------------------------+---------------------------------------+
+| Operator                                        | Description                           |
++=================================================+=======================================+
+| "lambda"                                        | Lambda expression                     |
++-------------------------------------------------+---------------------------------------+
+| "if" -- "else"                                  | Conditional expression                |
++-------------------------------------------------+---------------------------------------+
+| "or"                                            | Boolean OR                            |
++-------------------------------------------------+---------------------------------------+
+| "and"                                           | Boolean AND                           |
++-------------------------------------------------+---------------------------------------+
+| "not" "x"                                       | Boolean NOT                           |
++-------------------------------------------------+---------------------------------------+
+| "in", "not in", "is", "is not", "<", "<=", ">", | Comparisons, including membership     |
+| ">=", "!=", "=="                                | tests and identity tests              |
++-------------------------------------------------+---------------------------------------+
+| "|"                                             | Bitwise OR                            |
++-------------------------------------------------+---------------------------------------+
+| "\^{}"                                             | Bitwise XOR                           |
++-------------------------------------------------+---------------------------------------+
+| "\&"                                             | Bitwise AND                           |
++-------------------------------------------------+---------------------------------------+
+| "<<", ">>"                                      | Shifts                                |
++-------------------------------------------------+---------------------------------------+
+| "+", "-"                                        | Addition and subtraction              |
++-------------------------------------------------+---------------------------------------+
+| "*", "@", "/", "//", "\%"                        | Multiplication, matrix                |
+|                                                 | multiplication, division, floor       |
+|                                                 | division, remainder [5]               |
++-------------------------------------------------+---------------------------------------+
+| "+x", "-x", "\textasciitilde{}x"                                | Positive, negative, bitwise NOT       |
++-------------------------------------------------+---------------------------------------+
+| "**"                                            | Exponentiation [6]                    |
++-------------------------------------------------+---------------------------------------+
+| "await" "x"                                     | Await expression                      |
++-------------------------------------------------+---------------------------------------+
+| "x[index]", "x[index:index]",                   | Subscription, slicing, call,          |
+| "x(arguments{\ldots})", "x.attribute"                | attribute reference                   |
++-------------------------------------------------+---------------------------------------+
+| "(expressions{\ldots})", "[expressions{\ldots}]", "\{key:  | Binding or tuple display, list        |
+| value{\ldots}\}", "\{expressions{\ldots}\}"                  | display, dictionary display, set      |
+|                                                 | display                               |
++-------------------------------------------------+---------------------------------------+
+
+-[ Footnotes ]-
+
+[1] While "abs(x\%y) < abs(y)" is true mathematically, for floats
+    it may not be true numerically due to roundoff.  For example, and
+    assuming a platform on which a Python float is an IEEE 754 double-
+    precision number, in order that "-1e-100 \% 1e100" have the same
+    sign as "1e100", the computed result is "-1e-100 + 1e100", which
+    is numerically exactly equal to "1e100".  The function
+    "math.fmod()" returns a result whose sign matches the sign of the
+    first argument instead, and so returns "-1e-100" in this case.
+    Which approach is more appropriate depends on the application.
+
+[2] If x is very close to an exact integer multiple of y, it's
+    possible for "x//y" to be one larger than "(x-x\%y)//y" due to
+    rounding.  In such cases, Python returns the latter result, in
+    order to preserve that "divmod(x,y)[0] * y + x \% y" be very close
+    to "x".
+
+[3] The Unicode standard distinguishes between *code points* (e.g.
+    U+0041) and *abstract characters* (e.g. "LATIN CAPITAL LETTER A").
+    While most abstract characters in Unicode are only represented
+    using one code point, there is a number of abstract characters
+    that can in addition be represented using a sequence of more than
+    one code point.  For example, the abstract character "LATIN
+    CAPITAL LETTER C WITH CEDILLA" can be represented as a single
+    *precomposed character* at code position U+00C7, or as a sequence
+    of a *base character* at code position U+0043 (LATIN CAPITAL
+    LETTER C), followed by a *combining character* at code position
+    U+0327 (COMBINING CEDILLA).
+
+    The comparison operators on strings compare at the level of
+    Unicode code points. This may be counter-intuitive to humans.  For
+    example, ""\textbackslash{}u00C7" == "\textbackslash{}u0043\textbackslash{}u0327"" is "False", even though both
+    strings represent the same abstract character "LATIN CAPITAL
+    LETTER C WITH CEDILLA".
+
+    To compare strings at the level of abstract characters (that is,
+    in a way intuitive to humans), use "unicodedata.normalize()".
+
+[4] Due to automatic garbage-collection, free lists, and the
+    dynamic nature of descriptors, you may notice seemingly unusual
+    behaviour in certain uses of the "is" operator, like those
+    involving comparisons between instance methods, or constants.
+    Check their documentation for more info.
+
+[5] The "\%" operator is also used for string formatting; the same
+    precedence applies.
+
+[6] The power operator "**" binds less tightly than an arithmetic
+    or bitwise unary operator on its right, that is, "2**-1" is "0.5".
+
+Related help topics: lambda, or, and, not, in, is, BOOLEAN, COMPARISON,BITWISE, SHIFTING, BINARY, FORMATTING, POWER, UNARY, ATTRIBUTES,SUBSCRIPTS, SLICINGS, CALLS, TUPLES, LISTS, DICTIONARIES
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Operadores artitméticos}
+        
+        \PY{n}{nombre}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Grupo}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OPALO}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{nombre}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)} \PY{c+c1}{\PYZsh{} Realiza la aproximación al entero menor}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{\PYZpc{}}\PY{k}{3})  \PYZsh{} Modulo de la división
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)} \PY{c+c1}{\PYZsh{} Potenciación}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Grupo OPALO
+1
+2
+125
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Operadores lógicos y de comparación}
+        
+        \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{15}\PY{o}{==}\PY{l+m+mi}{12}
+        \PY{n}{a}\PY{o}{=} \PY{l+m+mi}{45}\PY{o}{==}\PY{l+m+mi}{45} \PY{o+ow}{and} \PY{l+m+mi}{13}\PY{o}{\PYZgt{}}\PY{l+m+mi}{9}
+        \PY{n}{b}\PY{o}{=} \PY{l+m+mi}{15}\PY{o}{!=}\PY{l+m+mi}{12} \PY{o+ow}{or} \PY{l+m+mi}{12}\PY{o}{\PYZgt{}}\PY{l+m+mi}{9}
+        \PY{n}{c}\PY{o}{=} \PY{l+m+mi}{15} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+True
+
+    \end{Verbatim}
+
+    Para python el orden de las operaciones sigue la convención matemática
+(PEMDAS)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Paréntesis
+\item
+  Potenciación (Exponentiation)
+\item
+  Multiplicación y división
+\item
+  Suma y resta
+\end{enumerate}
+
+Operadores con la misma presedencia son evaluados de izquierda a derecha
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} -6
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{p}{(}\PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 14
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} -3
+\end{Verbatim}
+            
+    \subsubsection{Ejercicios}\label{ejercicios}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Cree un notebook y responda a cada uno de los siguientes items en
+  celdas independientes.
+\item
+  Cree una variable de cada tipo e imprima su tipo
+\item
+  A que se debe el error cuando se generea la siguiente variable
+
+  var = "OPALO" + 205
+\item
+  Ubique los paréntesis de tal manera que la operación sea igual a "0"
+
+\begin{verbatim}
+8 - 3* 2 - 1 + 1
+\end{verbatim}
+\item
+  ¿Cuál es el valor de la suiguiente expresión? \# 7-\/-\/-\/-\/-\/-3
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:}  \PY{l+m+mi}{8} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 0
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
